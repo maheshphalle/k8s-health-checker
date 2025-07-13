@@ -1,0 +1,10 @@
+groups:
+- name: health-check-rules
+  rules:
+  - alert: PodCrashLooping
+    expr: increase(kube_pod_container_status_restarts_total[5m]) > 2
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Pod {{ $labels.pod }} is restarting frequently"
